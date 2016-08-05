@@ -9,6 +9,8 @@
 //  LICENSE file in the root directory of this source tree.
 //
 
+//http://www.yiibai.com/json/json_data_types.html
+
 #import <XCTest/XCTest.h>
 #import "YYModel.h"
 #import "YYTestHelper.h"
@@ -404,6 +406,47 @@
     XCTAssertTrue(model.boolValue == false);
     XCTAssertTrue(model.object == nil);
 }
+
+
+- (void)testNull1 {
+    YYTestAutoTypeModel *model;
+     NSString *  json = @"{\"v\" : \"<null>\"}";
+
+    model = [YYTestAutoTypeModel yy_modelWithJSON:json];
+    NSLog(@"model %@ %@",model.string,model.mString);
+    NSLog(@"ddd %@",@"<null>");
+    XCTAssertTrue([model.mString isEqual:@"<null>"]);
+}
+
+- (void)testNull2 {
+    YYTestAutoTypeModel *model;
+    NSString *  json = @"{\"v\" : \"null\"}";
+    
+    model = [YYTestAutoTypeModel yy_modelWithJSON:json];
+    NSLog(@"model %@ %@",model.string,model.mString);
+    NSLog(@"ddd %@",@"<null>");
+    XCTAssertTrue([model.mString isEqual:@"null"]);
+}
+
+- (void)testNull3 {
+    YYTestAutoTypeModel *model;
+    NSString *  json = @"{\"v\" :null}";
+
+    model = [YYTestAutoTypeModel yy_modelWithJSON:json];
+    NSLog(@"model %@ %@",model.string,model.mString);
+    
+    XCTAssertTrue(model.mString  == nil);
+}
+
+- (void)testNull4 {
+    YYTestAutoTypeModel *model;
+    NSString *  json = @"{\"v\" :[]}";
+    
+    model = [YYTestAutoTypeModel yy_modelWithJSON:json];
+    NSLog(@"model %@ %@",model.string,model.mString);
+    XCTAssertTrue(model.mString  == nil);
+}
+
 
 - (void)testBlock {
     int (^block)(void) = ^{return 12;};
